@@ -241,6 +241,9 @@ function generarHorario(){
 
         //Span en filas segun duracion
         var span_rows = fila_grid + duracion
+        if(span_rows == 16){
+            span_rows = 17
+        }
 
         var val_grid = fila_grid.toString() + ' / ' + span_rows.toString()
 
@@ -263,19 +266,26 @@ function generarHorario(){
         if(el.innerText.length == 0 && cant_elementos > celdas_del){
             el.remove()
         }
-    })
+    });
 
     //Asignar colores
     var colores = ['#6B0F1A', '#0E79B2', '#364935', '#E98A15', '#00272B', '#373F51', '#2191FB', '#BA274A', '#EF8354', '#CB793A']
     document.querySelectorAll('p[data-materiaid]').forEach(materia => {
         var id = parseInt(materia.dataset.materiaid)
-        console.log(id)
         var color = colores[id]
         materia.style.backgroundColor = color
-    })
+    });
 
     //Mostrar la tabla
-    document.querySelector('.vistaprevia').style.display = 'flex'
+    document.querySelector('.vistaprevia').style.display = 'flex';
+
+    //Quitar bordes de celdas con height 1
+    var celdas_array = [...document.querySelectorAll('.class-cell')]
+    celdas_array.forEach(x =>{
+        if(x.offsetHeight == 1){
+            x.style.border = 'none'
+        }
+    });
 
     //Generar screenshot de tabla
     var resultado_final = document.querySelector('#horario-resultado')
